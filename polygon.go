@@ -1,0 +1,98 @@
+// Copyright 2015 Simon HEGE. All rights reserved.
+// Use of this source code is governed by a MIT-style
+// license that can be found in the LICENSE file.
+
+package geom
+
+//Polygon is a two-dimensional geometry representing a polygon
+type Polygon []LineString
+
+//PolygonZ is a three-dimensional geometry representing a polygon
+type PolygonZ []LineStringZ
+
+//PolygonM is a two-dimensional geometry representing a polygon, with an additional value defined on each vertex
+type PolygonM []LineStringM
+
+//PolygonZM is a three-dimensional geometry representing a polygon, with an additional value defined on each vertex
+type PolygonZM []LineStringZM
+
+//Envelope returns an envelope around the GeometryCollection
+func (p Polygon) Envelope() *Envelope {
+	e := NewEnvelope()
+	for _, ls := range p {
+		e.Extend(ls.Envelope())
+	}
+	return e
+}
+
+//Envelope returns an envelope around the GeometryCollection
+func (p PolygonZ) Envelope() *Envelope {
+	e := NewEnvelope()
+	for _, ls := range p {
+		e.Extend(ls.Envelope())
+	}
+	return e
+}
+
+//EnvelopeZ returns an envelope around the GeometryCollection
+func (p PolygonZ) EnvelopeZ() *EnvelopeZ {
+	e := NewEnvelopeZ()
+	for _, ls := range p {
+		e.Extend(ls.EnvelopeZ())
+	}
+	return e
+}
+
+//Envelope returns an envelope around the GeometryCollection
+func (p PolygonM) Envelope() *Envelope {
+	e := NewEnvelope()
+	for _, ls := range p {
+		e.Extend(ls.Envelope())
+	}
+	return e
+}
+
+//EnvelopeM returns an envelope around the GeometryCollection
+func (p PolygonM) EnvelopeM() *EnvelopeM {
+	e := NewEnvelopeM()
+	for _, ls := range p {
+		e.Extend(ls.EnvelopeM())
+	}
+	return e
+}
+
+//Envelope returns an envelope around the GeometryCollection
+func (p PolygonZM) Envelope() *Envelope {
+	e := NewEnvelope()
+	for _, ls := range p {
+		e.Extend(ls.Envelope())
+	}
+	return e
+}
+
+//EnvelopeZ returns an envelope around the GeometryCollection
+func (p PolygonZM) EnvelopeZ() *EnvelopeZ {
+	e := NewEnvelopeZ()
+	for _, ls := range p {
+		e.Extend(ls.EnvelopeZ())
+	}
+	return e
+}
+
+//EnvelopeM returns an envelope around the GeometryCollection
+func (p PolygonZM) EnvelopeM() *EnvelopeM {
+	e := NewEnvelopeM()
+	for _, ls := range p {
+		e.Extend(ls.EnvelopeM())
+	}
+	return e
+}
+
+//EnvelopeZM returns an envelope around the GeometryCollection
+func (p PolygonZM) EnvelopeZM() *EnvelopeZM {
+	e := NewEnvelopeZM()
+	for _, ls := range p {
+		e.Extend(ls.EnvelopeZM())
+	}
+	return e
+}
