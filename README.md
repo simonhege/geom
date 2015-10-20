@@ -5,7 +5,7 @@ Package geom is a geometry library in Go.
 It provides definition of basic geometry structures (Point, LineString, Polygon), including Z, M and ZM variants. 
 MultiGeometry and geometries collections are also provided.
 
-Sub-packages allow [encoding to GeoJSON](https://github.com/xeonx/geom/blob/encoding/geojson) and [decoding from Well Known Binary](https://github.com/xeonx/geom/blob/encoding/wkb).
+Sub-packages allow [encoding to GeoJSON](https://github.com/xeonx/geom/tree/master/encoding/geojson) and [decoding from Well Known Binary](https://github.com/xeonx/geom/tree/master/encoding/wkb).
   
 ## Install
 
