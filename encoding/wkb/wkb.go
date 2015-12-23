@@ -3,11 +3,11 @@
 // license that can be found in the LICENSE file.
 
 /*
-Package wkb implements decoding of WKB objects as defined in OGC 06-103r4. 
+Package wkb implements decoding of WKB objects as defined in OGC 06-103r4.
 
-WKB is a binary format for geometry encoding. It is described in OGC 06-103r4 OpenGIS® 
-Implementation Standard for Geographic information - Simple feature access - Part 1: 
-Common architecture Version: 1.2.1 2011-05-28 
+WKB is a binary format for geometry encoding. It is described in OGC 06-103r4 OpenGIS®
+Implementation Standard for Geographic information - Simple feature access - Part 1:
+Common architecture Version: 1.2.1 2011-05-28
 http://portal.opengeospatial.org/files/?artifact_id=25355 (also ISO/TC211 19125 Part 1)
 */
 package wkb
@@ -134,22 +134,22 @@ func readWkbPoint(r io.Reader, byteOrder binary.ByteOrder, dim Dimensioner) (geo
 		}
 
 		if dim.HasM() {
-			return geom.PointZM{
+			return &geom.PointZM{
 				PointZ: ptz,
 				M:      m,
 			}, nil
 		}
 
-		return ptz, nil
+		return &ptz, nil
 
 	} else if dim.HasM() {
-		return geom.PointM{
+		return &geom.PointM{
 			Point: pt,
 			M:     m,
 		}, nil
 	}
 
-	return pt, nil
+	return &pt, nil
 }
 func readWkbLineString(r io.Reader, byteOrder binary.ByteOrder, dim Dimensioner) (geom.Geometry, error) {
 
@@ -263,45 +263,48 @@ func readWkbMultiPoint(r io.Reader, byteOrder binary.ByteOrder, dim Dimensioner)
 		geoms[i] = geom
 	}
 
-	var ok bool
 	if dim.HasZ() {
 		if dim.HasM() {
 			points := make(geom.MultiPointZM, len(geoms))
 			for i, g := range geoms {
-				points[i], ok = g.(geom.PointZM)
+				pt, ok := g.(*geom.PointZM)
 				if !ok {
 					return nil, fmt.Errorf("Unexpected child geometry type in MultiPointZM: %s", reflect.TypeOf(g).String())
 				}
+				points[i] = *pt
 			}
 			return points, nil
 		}
 
 		points := make(geom.MultiPointZ, len(geoms))
 		for i, g := range geoms {
-			points[i], ok = g.(geom.PointZ)
+			pt, ok := g.(*geom.PointZ)
 			if !ok {
 				return nil, fmt.Errorf("Unexpected child geometry type in MultiPointZ: %s", reflect.TypeOf(g).String())
 			}
+			points[i] = *pt
 		}
 		return points, nil
 
 	} else if dim.HasM() {
 		points := make(geom.MultiPointM, len(geoms))
 		for i, g := range geoms {
-			points[i], ok = g.(geom.PointM)
+			pt, ok := g.(*geom.PointM)
 			if !ok {
 				return nil, fmt.Errorf("Unexpected child geometry type in MultiPointM: %s", reflect.TypeOf(g).String())
 			}
+			points[i] = *pt
 		}
 		return points, nil
 	}
 
 	points := make(geom.MultiPoint, len(geoms))
 	for i, g := range geoms {
-		points[i], ok = g.(geom.Point)
+		pt, ok := g.(*geom.Point)
 		if !ok {
 			return nil, fmt.Errorf("Unexpected child geometry type in MultiPoint: %s", reflect.TypeOf(g).String())
 		}
+		points[i] = *pt
 	}
 	return points, nil
 }

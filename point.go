@@ -52,3 +52,16 @@ func (pt PointZM) EnvelopeM() *EnvelopeM {
 func (pt PointZM) EnvelopeZM() *EnvelopeZM {
 	return NewEnvelopeZMFromPoint(pt)
 }
+
+//Clone returns a deep copy of the point
+func (pt Point) Clone() Geometry {
+	return &pt
+}
+
+//Iterate walks over the points (and can modify in situ) the point
+func (pt *Point) Iterate(f func([]Point) error) error {
+	points := []Point{*pt}
+	err := f(points)
+	*pt = points[0]
+	return err
+}

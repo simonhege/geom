@@ -96,3 +96,63 @@ func (c MultiLineStringZM) EnvelopeZM() *EnvelopeZM {
 	}
 	return e
 }
+
+//Clone returns a deep copy of the multi-linestring
+func (c MultiLineString) Clone() Geometry {
+	return &c
+}
+
+//Clone returns a deep copy of the multi-linestring
+func (c MultiLineStringZ) Clone() Geometry {
+	return &c
+}
+
+//Clone returns a deep copy of the multi-linestring
+func (c MultiLineStringM) Clone() Geometry {
+	return &c
+}
+
+//Clone returns a deep copy of the multi-linestring
+func (c MultiLineStringZM) Clone() Geometry {
+	return &c
+}
+
+//Iterate walks over the points (and can modify in situ) the multi-linestring
+func (c MultiLineString) Iterate(f func([]Point) error) error {
+	for i := range c {
+		if err := c[i].Iterate(f); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+//Iterate walks over the points (and can modify in situ) the multi-linestring
+func (c MultiLineStringZ) Iterate(f func([]Point) error) error {
+	for i := range c {
+		if err := c[i].Iterate(f); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+//Iterate walks over the points (and can modify in situ) the multi-linestring
+func (c MultiLineStringM) Iterate(f func([]Point) error) error {
+	for i := range c {
+		if err := c[i].Iterate(f); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+//Iterate walks over the points (and can modify in situ) the multi-linestring
+func (c MultiLineStringZM) Iterate(f func([]Point) error) error {
+	for i := range c {
+		if err := c[i].Iterate(f); err != nil {
+			return err
+		}
+	}
+	return nil
+}

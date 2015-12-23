@@ -96,3 +96,63 @@ func (c MultiPolygonZM) EnvelopeZM() *EnvelopeZM {
 	}
 	return e
 }
+
+//Clone returns a deep copy of the multi-polygon
+func (c MultiPolygon) Clone() Geometry {
+	return &c
+}
+
+//Clone returns a deep copy of the multi-polygon
+func (c MultiPolygonZ) Clone() Geometry {
+	return &c
+}
+
+//Clone returns a deep copy of the multi-polygon
+func (c MultiPolygonM) Clone() Geometry {
+	return &c
+}
+
+//Clone returns a deep copy of the multi-polygon
+func (c MultiPolygonZM) Clone() Geometry {
+	return &c
+}
+
+//Iterate walks over the points (and can modify in situ) the multi-polygon
+func (c MultiPolygon) Iterate(f func([]Point) error) error {
+	for i := range c {
+		if err := c[i].Iterate(f); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+//Iterate walks over the points (and can modify in situ) the multi-polygon
+func (c MultiPolygonZ) Iterate(f func([]Point) error) error {
+	for i := range c {
+		if err := c[i].Iterate(f); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+//Iterate walks over the points (and can modify in situ) the multi-polygon
+func (c MultiPolygonM) Iterate(f func([]Point) error) error {
+	for i := range c {
+		if err := c[i].Iterate(f); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+//Iterate walks over the points (and can modify in situ) the multi-polygon
+func (c MultiPolygonZM) Iterate(f func([]Point) error) error {
+	for i := range c {
+		if err := c[i].Iterate(f); err != nil {
+			return err
+		}
+	}
+	return nil
+}

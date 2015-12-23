@@ -14,6 +14,10 @@ package geom
 //Geometry represents a geometry object
 type Geometry interface {
 	Envelope() *Envelope
+
+	Clone() Geometry
+
+	Iterate(f func([]Point) error) error //The iterate function can modify Point in place
 }
 
 //GeometryZ represents a three-dimensional geometry object
@@ -40,38 +44,38 @@ type GeometryZM interface {
 	EnvelopeZM() *EnvelopeZM
 }
 
-//Ensure that geometry structs implements the geoemtry intrefaces
-var _ Geometry = Point{}
-var _ GeometryZ = PointZ{}
-var _ GeometryM = PointM{}
-var _ GeometryZM = PointZM{}
+//Ensure that geometry structs implements the geometry interfaces
+var _ Geometry = &Point{}
+var _ GeometryZ = &PointZ{}
+var _ GeometryM = &PointM{}
+var _ GeometryZM = &PointZM{}
 
-var _ Geometry = LineString{}
-var _ GeometryZ = LineStringZ{}
-var _ GeometryM = LineStringM{}
-var _ GeometryZM = LineStringZM{}
+var _ Geometry = &LineString{}
+var _ GeometryZ = &LineStringZ{}
+var _ GeometryM = &LineStringM{}
+var _ GeometryZM = &LineStringZM{}
 
-var _ Geometry = Polygon{}
-var _ GeometryZ = PolygonZ{}
-var _ GeometryM = PolygonM{}
-var _ GeometryZM = PolygonZM{}
+var _ Geometry = &Polygon{}
+var _ GeometryZ = &PolygonZ{}
+var _ GeometryM = &PolygonM{}
+var _ GeometryZM = &PolygonZM{}
 
-var _ Geometry = MultiPoint{}
-var _ GeometryZ = MultiPointZ{}
-var _ GeometryM = MultiPointM{}
-var _ GeometryZM = MultiPointZM{}
+var _ Geometry = &MultiPoint{}
+var _ GeometryZ = &MultiPointZ{}
+var _ GeometryM = &MultiPointM{}
+var _ GeometryZM = &MultiPointZM{}
 
-var _ Geometry = MultiLineString{}
-var _ GeometryZ = MultiLineStringZ{}
-var _ GeometryM = MultiLineStringM{}
-var _ GeometryZM = MultiLineStringZM{}
+var _ Geometry = &MultiLineString{}
+var _ GeometryZ = &MultiLineStringZ{}
+var _ GeometryM = &MultiLineStringM{}
+var _ GeometryZM = &MultiLineStringZM{}
 
-var _ Geometry = MultiPolygon{}
-var _ GeometryZ = MultiPolygonZ{}
-var _ GeometryM = MultiPolygonM{}
-var _ GeometryZM = MultiPolygonZM{}
+var _ Geometry = &MultiPolygon{}
+var _ GeometryZ = &MultiPolygonZ{}
+var _ GeometryM = &MultiPolygonM{}
+var _ GeometryZM = &MultiPolygonZM{}
 
-var _ Geometry = GeometryCollection{}
-var _ GeometryZ = GeometryCollectionZ{}
-var _ GeometryM = GeometryCollectionM{}
-var _ GeometryZM = GeometryCollectionZM{}
+var _ Geometry = &GeometryCollection{}
+var _ GeometryZ = &GeometryCollectionZ{}
+var _ GeometryM = &GeometryCollectionM{}
+var _ GeometryZM = &GeometryCollectionZM{}

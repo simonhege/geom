@@ -16,7 +16,7 @@ type MultiPointM []PointM
 //MultiPointZM is a collection of three-dimensional geometries representing points, with an additional value defined on each point
 type MultiPointZM []PointZM
 
-//Envelope returns an envelope around the GeometryCollection
+//Envelope returns an envelope around the multi-point
 func (c MultiPoint) Envelope() *Envelope {
 	e := NewEnvelope()
 	for _, g := range c {
@@ -25,7 +25,7 @@ func (c MultiPoint) Envelope() *Envelope {
 	return e
 }
 
-//Envelope returns an envelope around the GeometryCollection
+//Envelope returns an envelope around the multi-point
 func (c MultiPointZ) Envelope() *Envelope {
 	e := NewEnvelope()
 	for _, g := range c {
@@ -34,7 +34,7 @@ func (c MultiPointZ) Envelope() *Envelope {
 	return e
 }
 
-//EnvelopeZ returns an envelope around the GeometryCollection
+//EnvelopeZ returns an envelope around the multi-point
 func (c MultiPointZ) EnvelopeZ() *EnvelopeZ {
 	e := NewEnvelopeZ()
 	for _, g := range c {
@@ -43,7 +43,7 @@ func (c MultiPointZ) EnvelopeZ() *EnvelopeZ {
 	return e
 }
 
-//Envelope returns an envelope around the GeometryCollection
+//Envelope returns an envelope around the multi-point
 func (c MultiPointM) Envelope() *Envelope {
 	e := NewEnvelope()
 	for _, g := range c {
@@ -52,7 +52,7 @@ func (c MultiPointM) Envelope() *Envelope {
 	return e
 }
 
-//EnvelopeM returns an envelope around the GeometryCollection
+//EnvelopeM returns an envelope around the multi-point
 func (c MultiPointM) EnvelopeM() *EnvelopeM {
 	e := NewEnvelopeM()
 	for _, g := range c {
@@ -61,7 +61,7 @@ func (c MultiPointM) EnvelopeM() *EnvelopeM {
 	return e
 }
 
-//Envelope returns an envelope around the GeometryCollection
+//Envelope returns an envelope around the multi-point
 func (c MultiPointZM) Envelope() *Envelope {
 	e := NewEnvelope()
 	for _, g := range c {
@@ -70,7 +70,7 @@ func (c MultiPointZM) Envelope() *Envelope {
 	return e
 }
 
-//EnvelopeZ returns an envelope around the GeometryCollection
+//EnvelopeZ returns an envelope around the multi-point
 func (c MultiPointZM) EnvelopeZ() *EnvelopeZ {
 	e := NewEnvelopeZ()
 	for _, g := range c {
@@ -79,7 +79,7 @@ func (c MultiPointZM) EnvelopeZ() *EnvelopeZ {
 	return e
 }
 
-//EnvelopeM returns an envelope around the GeometryCollection
+//EnvelopeM returns an envelope around the multi-point
 func (c MultiPointZM) EnvelopeM() *EnvelopeM {
 	e := NewEnvelopeM()
 	for _, g := range c {
@@ -88,11 +88,75 @@ func (c MultiPointZM) EnvelopeM() *EnvelopeM {
 	return e
 }
 
-//EnvelopeZM returns an envelope around the GeometryCollection
+//EnvelopeZM returns an envelope around the multi-point
 func (c MultiPointZM) EnvelopeZM() *EnvelopeZM {
 	e := NewEnvelopeZM()
 	for _, g := range c {
 		e.Extend(g.EnvelopeZM())
 	}
 	return e
+}
+
+//Clone returns a deep copy of the multi-point
+func (c MultiPoint) Clone() Geometry {
+	return &c
+}
+
+//Clone returns a deep copy of the multi-point
+func (c MultiPointZ) Clone() Geometry {
+	return &c
+}
+
+//Clone returns a deep copy of the multi-point
+func (c MultiPointM) Clone() Geometry {
+	return &c
+}
+
+//Clone returns a deep copy of the multi-point
+func (c MultiPointZM) Clone() Geometry {
+	return &c
+}
+
+//Iterate walks over the points (and can modify in situ) the multi-point
+func (c MultiPoint) Iterate(f func([]Point) error) error {
+	return f(c)
+}
+
+//Iterate walks over the points (and can modify in situ) the multi-point
+func (c MultiPointZ) Iterate(f func([]Point) error) error {
+	points := make([]Point, len(c))
+	for i := range c {
+		points[i] = c[i].Point
+	}
+	err := f(points)
+	for i := range c {
+		c[i].Point = points[i]
+	}
+	return err
+}
+
+//Iterate walks over the points (and can modify in situ) the multi-point
+func (c MultiPointM) Iterate(f func([]Point) error) error {
+	points := make([]Point, len(c))
+	for i := range c {
+		points[i] = c[i].Point
+	}
+	err := f(points)
+	for i := range c {
+		c[i].Point = points[i]
+	}
+	return err
+}
+
+//Iterate walks over the points (and can modify in situ) the multi-point
+func (c MultiPointZM) Iterate(f func([]Point) error) error {
+	points := make([]Point, len(c))
+	for i := range c {
+		points[i] = c[i].Point
+	}
+	err := f(points)
+	for i := range c {
+		c[i].Point = points[i]
+	}
+	return err
 }

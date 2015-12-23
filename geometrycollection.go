@@ -25,7 +25,7 @@ func (c GeometryCollection) Envelope() *Envelope {
 	return e
 }
 
-//Envelope returns an envelope around the GeometryCollection
+//Envelope returns an envelope around the geometry collection
 func (c GeometryCollectionZ) Envelope() *Envelope {
 	e := NewEnvelope()
 	for _, g := range c {
@@ -34,7 +34,7 @@ func (c GeometryCollectionZ) Envelope() *Envelope {
 	return e
 }
 
-//EnvelopeZ returns an envelope around the GeometryCollection
+//EnvelopeZ returns an envelope around the geometry collection
 func (c GeometryCollectionZ) EnvelopeZ() *EnvelopeZ {
 	e := NewEnvelopeZ()
 	for _, g := range c {
@@ -43,7 +43,7 @@ func (c GeometryCollectionZ) EnvelopeZ() *EnvelopeZ {
 	return e
 }
 
-//Envelope returns an envelope around the GeometryCollection
+//Envelope returns an envelope around the geometry collection
 func (c GeometryCollectionM) Envelope() *Envelope {
 	e := NewEnvelope()
 	for _, g := range c {
@@ -52,7 +52,7 @@ func (c GeometryCollectionM) Envelope() *Envelope {
 	return e
 }
 
-//EnvelopeM returns an envelope around the GeometryCollection
+//EnvelopeM returns an envelope around the geometry collection
 func (c GeometryCollectionM) EnvelopeM() *EnvelopeM {
 	e := NewEnvelopeM()
 	for _, g := range c {
@@ -61,7 +61,7 @@ func (c GeometryCollectionM) EnvelopeM() *EnvelopeM {
 	return e
 }
 
-//Envelope returns an envelope around the GeometryCollection
+//Envelope returns an envelope around the geometry collection
 func (c GeometryCollectionZM) Envelope() *Envelope {
 	e := NewEnvelope()
 	for _, g := range c {
@@ -70,7 +70,7 @@ func (c GeometryCollectionZM) Envelope() *Envelope {
 	return e
 }
 
-//EnvelopeZ returns an envelope around the GeometryCollection
+//EnvelopeZ returns an envelope around the geometry collection
 func (c GeometryCollectionZM) EnvelopeZ() *EnvelopeZ {
 	e := NewEnvelopeZ()
 	for _, g := range c {
@@ -79,7 +79,7 @@ func (c GeometryCollectionZM) EnvelopeZ() *EnvelopeZ {
 	return e
 }
 
-//EnvelopeM returns an envelope around the GeometryCollection
+//EnvelopeM returns an envelope around the geometry collection
 func (c GeometryCollectionZM) EnvelopeM() *EnvelopeM {
 	e := NewEnvelopeM()
 	for _, g := range c {
@@ -95,4 +95,64 @@ func (c GeometryCollectionZM) EnvelopeZM() *EnvelopeZM {
 		e.Extend(g.EnvelopeZM())
 	}
 	return e
+}
+
+//Clone returns a deep copy of the geometry collection
+func (c GeometryCollection) Clone() Geometry {
+	return &c
+}
+
+//Clone returns a deep copy of the geometry collection
+func (c GeometryCollectionZ) Clone() Geometry {
+	return &c
+}
+
+//Clone returns a deep copy of the geometry collection
+func (c GeometryCollectionM) Clone() Geometry {
+	return &c
+}
+
+//Clone returns a deep copy of the geometry collection
+func (c GeometryCollectionZM) Clone() Geometry {
+	return &c
+}
+
+//Iterate walks over the points (and can modify in situ) the geometry collection
+func (c GeometryCollection) Iterate(f func([]Point) error) error {
+	for i := range c {
+		if err := c[i].Iterate(f); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+//Iterate walks over the points (and can modify in situ) the geometry collection
+func (c GeometryCollectionZ) Iterate(f func([]Point) error) error {
+	for i := range c {
+		if err := c[i].Iterate(f); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+//Iterate walks over the points (and can modify in situ) the geometry collection
+func (c GeometryCollectionM) Iterate(f func([]Point) error) error {
+	for i := range c {
+		if err := c[i].Iterate(f); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+//Iterate walks over the points (and can modify in situ) the geometry collection
+func (c GeometryCollectionZM) Iterate(f func([]Point) error) error {
+	for i := range c {
+		if err := c[i].Iterate(f); err != nil {
+			return err
+		}
+	}
+	return nil
 }
